@@ -1,0 +1,618 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="一些記錄" href="https://roc-camera.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="一些記錄" href="https://roc-camera.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="一些記錄" href="https://roc-camera.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Vue" />
+
+
+<link rel="canonical" href="https://roc-camera.github.io/vue3/%E4%BD%BF%E7%94%A8Vue3+LogicFlow%E5%AE%9E%E7%8E%B0%E5%8F%AF%E6%8B%96%E6%8B%BD%E7%BC%96%E8%BE%91%E7%AD%89%E6%93%8D%E4%BD%9C%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9B%BE/">
+
+
+
+  <title>
+使用Vue3+LogicFlow实现可拖拽编辑等操作的流程图 - Vue |
+Some Records = 一些記錄 = 编程、摄影、旅行</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">使用Vue3+LogicFlow实现可拖拽编辑等操作的流程图
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-07-06 14:00:25">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-07-06T14:00:25+08:00">2023-07-06</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>13k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>12 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Some Records</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://picx.zhimg.com/80/v2-3ff3d6a85edb2f19d343668d24ed9269_720w.webp?source=1940ef5c"></li>
+          <li class="item" data-background-image="https://pic1.zhimg.com/80/v2-73b8307b2db44c617f4e8515ce67dd39_720w.webp?source=1940ef5c"></li>
+          <li class="item" data-background-image="https://pica.zhimg.com/80/v2-c2bc308ed73d97e1c27b8be03d73781c_720w.webp?source=1940ef5c"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Z5W6r2BSoiThHG1.jpg"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Y1CBXqgeokEs457.jpg"></li>
+          <li class="item" data-background-image="https://pica.zhimg.com/80/v2-fefde43aecf0174852a075f56cb3c9ea_720w.webp?source=1940ef5c"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/Vue/" itemprop="item" rel="index" title="分类于 Vue"><span itemprop="name">Vue</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://roc-camera.github.io/vue3/%E4%BD%BF%E7%94%A8Vue3+LogicFlow%E5%AE%9E%E7%8E%B0%E5%8F%AF%E6%8B%96%E6%8B%BD%E7%BC%96%E8%BE%91%E7%AD%89%E6%93%8D%E4%BD%9C%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9B%BE/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatarOne.jpg">
+    <meta itemprop="name" content="Roc">
+    <meta itemprop="description" content="编程、摄影、旅行, 逝者如斯夫，不舍昼夜！">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="一些記錄">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>参考文档：<span class="exturl" data-url="aHR0cHM6Ly8wNy5sb2dpYy1mbG93LmNuL2d1aWRlL3N0YXJ0Lmh0bWwjJUU1JUJDJTgwJUU1JUE3JThCJUU0JUJEJUJGJUU3JTk0JUE4">LogicFlow 官方文档</span></p>
+<h3 id="logicflow-是什么"><a class="markdownIt-Anchor" href="#logicflow-是什么">#</a> LogicFlow 是什么</h3>
+<p>LogicFlow 是一款流程图编辑框架，提供了一系列流程图交互、编辑所必需的功能和灵活的节点自定义、插件等拓展机制。LogicFlow 支持前端研发自定义开发各种逻辑编排场景，如流程图、ER 图、BPMN 流程等。在工作审批配置、机器人逻辑编排、无代码平台流程配置都有较好的应用。</p>
+<h3 id="安装logicflow"><a class="markdownIt-Anchor" href="#安装logicflow">#</a> 安装 LogicFlow</h3>
+<p>通过 <code>npm</code>  或 <code>yarn</code>  来安装 <code>LogicFlow</code> 。</p>
+<figure class="highlight yaml"><figcaption data-lang="YAML"><span>l</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment"># npm</span></pre></td></tr><tr><td data-num="2"></td><td><pre>$ npm install @logicflow/core <span class="token punctuation">-</span><span class="token punctuation">-</span>save</pre></td></tr><tr><td data-num="3"></td><td><pre></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token comment"># yarn</span></pre></td></tr><tr><td data-num="5"></td><td><pre>$ yarn add @logicflow/core</pre></td></tr></table></figure><p>安装完成之后，使用 <code>import</code>  或 <code>require</code>  进行引用。</p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"><span>s</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">import</span> LogicFlow <span class="token keyword">from</span> <span class="token string">'@logicflow/core'</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">import</span> <span class="token string">'@logicflow/core/dist/style/index.css'</span><span class="token punctuation">;</span></pre></td></tr></table></figure><h3 id="快速上手"><a class="markdownIt-Anchor" href="#快速上手">#</a> 快速上手</h3>
+<h4 id="创建容器"><a class="markdownIt-Anchor" href="#创建容器">#</a> 创建容器</h4>
+<p>在页面中创建一个用于绘图的容器，可以是一个 <code>div</code>  标签。</p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"><span>s</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"container"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></pre></td></tr></table></figure><h4 id="准备数据"><a class="markdownIt-Anchor" href="#准备数据">#</a> 准备数据</h4>
+<p>通过 <code>JSON</code>  的数据格式，来让 <code>LogicFlow</code>  渲染。该数据中需要有 <code>nodes</code> （节点） 和 <code>edges</code> （边） 字段，分别用数组表示：</p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"><span>s</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">const</span> data <span class="token operator">=</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token comment">// 节点</span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token literal-property property">nodes</span><span class="token operator">:</span> <span class="token punctuation">[</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>      <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">50</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="6"></td><td><pre>      <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'rect'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="7"></td><td><pre>      <span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="8"></td><td><pre>      <span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token number">150</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="9"></td><td><pre>      <span class="token literal-property property">text</span><span class="token operator">:</span> <span class="token string">'你好'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>      <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">21</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="13"></td><td><pre>      <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'circle'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="14"></td><td><pre>      <span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token number">300</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="15"></td><td><pre>      <span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token number">150</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="16"></td><td><pre>    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="17"></td><td><pre>  <span class="token punctuation">]</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="18"></td><td><pre>  <span class="token comment">// 边</span></pre></td></tr><tr><td data-num="19"></td><td><pre>  <span class="token literal-property property">edges</span><span class="token operator">:</span> <span class="token punctuation">[</span></pre></td></tr><tr><td data-num="20"></td><td><pre>    <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="21"></td><td><pre>      <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'polyline'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="22"></td><td><pre>      <span class="token literal-property property">sourceNodeId</span><span class="token operator">:</span> <span class="token number">50</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="23"></td><td><pre>      <span class="token literal-property property">targetNodeId</span><span class="token operator">:</span> <span class="token number">21</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="24"></td><td><pre>    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="25"></td><td><pre>  <span class="token punctuation">]</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="26"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">;</span></pre></td></tr></table></figure><h4 id="渲染画布"><a class="markdownIt-Anchor" href="#渲染画布">#</a> 渲染画布</h4>
+<p>首先创建一个 <code>LogicFlow</code>  的实例，此时可以传入一些参数来控制画布，比如画布的大小。</p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"><span>s</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">const</span> lf <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LogicFlow</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token literal-property property">container</span><span class="token operator">:</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#container'</span><span class="token punctuation">)</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token literal-property property">stopScrollGraph</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="4"></td><td><pre>  <span class="token literal-property property">stopZoomGraph</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="5"></td><td><pre>  <span class="token literal-property property">width</span><span class="token operator">:</span> <span class="token number">500</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="6"></td><td><pre>  <span class="token literal-property property">height</span><span class="token operator">:</span> <span class="token number">500</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="7"></td><td><pre>  <span class="token literal-property property">grid</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>    <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'dot'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="9"></td><td><pre>    <span class="token literal-property property">size</span><span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="10"></td><td><pre>  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="11"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr></table></figure><p>通过刚才创建的实例，来渲染画布。</p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"><span>s</span></figcaption><table><tr><td data-num="1"></td><td><pre>lf<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr></table></figure><p>到此，我们就创建好了一个最简单的示例。</p>
+<h3 id="基本使用"><a class="markdownIt-Anchor" href="#基本使用">#</a> 基本使用</h3>
+<p>LogicFlow 的功能分为核心功能和插件功能。LogicFlow 最初的目标就是支持一个扩展性强的流程绘制工具，用来满足各种业务需求。为了让 LogicFlow 的拓展性足够强，LogicFlow 将所有的非核心功能都使用插件的方式开发，然后将这些插件放到 <code>@logicflow/extension</code>  包中。</p>
+<p>核心功能：节点、边、主题、事件、网格、背景、拖拽创建节点、键盘快捷键、对齐线、设置图编辑方式。</p>
+<p>插件功能： 菜单、拖拽面板、控制面板、小地图、框选、节点缩放、分组、圆角折线、边上插入节点、数据转换、BPMN 元素、导出、自定义插件。</p>
+<p>文档参见：<span class="exturl" data-url="aHR0cHM6Ly9zaXRlLmxvZ2ljLWZsb3cuY24vZG9jcy8jL3poL2d1aWRlL2Jhc2ljL25vZGU=">https://site.logic-flow.cn/docs/#/zh/guide/basic/node</span></p>
+<h3 id="demo"><a class="markdownIt-Anchor" href="#demo">#</a> Demo</h3>
+<p>main.js</p>
+<figure class="highlight javascript"><figcaption data-lang="javascript"><span>t</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">import</span>  <span class="token string">'./assets/main.css'</span></pre></td></tr><tr><td data-num="2"></td><td><pre>  </pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> createApp <span class="token punctuation">&#125;</span> <span class="token keyword">from</span>  <span class="token string">'vue'</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">import</span>  App  <span class="token keyword">from</span>  <span class="token string">'./App.vue'</span></pre></td></tr><tr><td data-num="5"></td><td><pre>  </pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token function">createApp</span><span class="token punctuation">(</span>App<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">mount</span><span class="token punctuation">(</span><span class="token string">'#app'</span><span class="token punctuation">)</span></pre></td></tr></table></figure><p>App.vue</p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"><span>s</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token operator">&lt;</span>template<span class="token operator">></span></pre></td></tr><tr><td data-num="2"></td><td><pre> <span class="token operator">&lt;</span>Lf <span class="token operator">/</span><span class="token operator">></span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span></pre></td></tr><tr><td data-num="4"></td><td><pre>  </pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token operator">&lt;</span>script<span class="token operator">></span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token keyword">import</span>  Lf  <span class="token keyword">from</span>  <span class="token string">"./components/Lf.vue"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>  </pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token keyword">export</span>  <span class="token keyword">default</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="9"></td><td><pre> <span class="token literal-property property">name</span><span class="token operator">:</span>  <span class="token string">"App"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="10"></td><td><pre> <span class="token literal-property property">components</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="11"></td><td><pre> Lf<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="12"></td><td><pre>  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="13"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="14"></td><td><pre><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></pre></td></tr><tr><td data-num="15"></td><td><pre>  </pre></td></tr><tr><td data-num="16"></td><td><pre><span class="token operator">&lt;</span>style<span class="token operator">></span></pre></td></tr><tr><td data-num="17"></td><td><pre>html<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="18"></td><td><pre>body <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="19"></td><td><pre> <span class="token literal-property property">width</span><span class="token operator">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre> <span class="token literal-property property">height</span><span class="token operator">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="21"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="22"></td><td><pre>#app <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="23"></td><td><pre> font<span class="token operator">-</span>family<span class="token operator">:</span> <span class="token string">"Avenir"</span><span class="token punctuation">,</span> Helvetica<span class="token punctuation">,</span> Arial<span class="token punctuation">,</span> sans<span class="token operator">-</span>serif<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="24"></td><td><pre> <span class="token operator">-</span>webkit<span class="token operator">-</span>font<span class="token operator">-</span>smoothing<span class="token operator">:</span> antialiased<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="25"></td><td><pre> <span class="token operator">-</span>moz<span class="token operator">-</span>osx<span class="token operator">-</span>font<span class="token operator">-</span>smoothing<span class="token operator">:</span> grayscale<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="26"></td><td><pre> text<span class="token operator">-</span>align<span class="token operator">:</span> center<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="27"></td><td><pre> <span class="token literal-property property">color</span><span class="token operator">:</span> #2c3e50<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="28"></td><td><pre> margin<span class="token operator">-</span>top<span class="token operator">:</span> 60px<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="29"></td><td><pre> <span class="token literal-property property">width</span><span class="token operator">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="30"></td><td><pre> <span class="token literal-property property">height</span><span class="token operator">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="31"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="32"></td><td><pre><span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">></span></pre></td></tr></table></figure><p>Lf.vue</p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"><span>s</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token operator">&lt;</span>template<span class="token operator">></span></pre></td></tr><tr><td data-num="2"></td><td><pre> <span class="token operator">&lt;</span>div  <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"container"</span>  ref<span class="token operator">=</span><span class="token string">"container"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span></pre></td></tr><tr><td data-num="4"></td><td><pre></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token operator">&lt;</span>script<span class="token operator">></span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token keyword">import</span>  LogicFlow  <span class="token keyword">from</span>  <span class="token string">"@logicflow/core"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> Menu<span class="token punctuation">,</span>DndPanel<span class="token punctuation">,</span> SelectionSelect<span class="token punctuation">&#125;</span> <span class="token keyword">from</span>  <span class="token string">"@logicflow/extension"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token keyword">import</span>  <span class="token string">"@logicflow/core/dist/style/index.css"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre><span class="token keyword">import</span>  <span class="token string">'@logicflow/extension/lib/style/index.css'</span></pre></td></tr><tr><td data-num="10"></td><td><pre><span class="token keyword">import</span>  UserTask  <span class="token keyword">from</span>  <span class="token string">"../common/UserTask"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>  </pre></td></tr><tr><td data-num="12"></td><td><pre><span class="token keyword">export</span>  <span class="token keyword">default</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="13"></td><td><pre> <span class="token function">mounted</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="14"></td><td><pre> <span class="token keyword">this</span><span class="token punctuation">.</span>lf <span class="token operator">=</span> <span class="token keyword">new</span>  <span class="token class-name">LogicFlow</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="15"></td><td><pre> <span class="token literal-property property">container</span><span class="token operator">:</span>  <span class="token keyword">this</span><span class="token punctuation">.</span>$refs<span class="token punctuation">.</span>container<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="16"></td><td><pre> <span class="token literal-property property">grid</span><span class="token operator">:</span>  <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 是否开启网格背景</span></pre></td></tr><tr><td data-num="17"></td><td><pre> <span class="token literal-property property">keyboard</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="18"></td><td><pre> <span class="token literal-property property">enabled</span><span class="token operator">:</span>  <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">//cv 回退 快捷键</span></pre></td></tr><tr><td data-num="19"></td><td><pre>            <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="20"></td><td><pre> <span class="token literal-property property">isSilentMode</span><span class="token operator">:</span>  <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment">// 仅浏览不可编辑模式，默认不开启</span></pre></td></tr><tr><td data-num="21"></td><td><pre> <span class="token literal-property property">snapline</span><span class="token operator">:</span>  <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment">// 关闭对齐线功能</span></pre></td></tr><tr><td data-num="22"></td><td><pre> <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span>DndPanel<span class="token punctuation">,</span> SelectionSelect<span class="token punctuation">,</span>Menu<span class="token punctuation">]</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="23"></td><td><pre>        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="24"></td><td><pre></pre></td></tr><tr><td data-num="25"></td><td><pre> <span class="token keyword">this</span><span class="token punctuation">.</span>lf<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>UserTask<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="26"></td><td><pre> <span class="token keyword">this</span><span class="token punctuation">.</span>lf<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="27"></td><td><pre> <span class="token literal-property property">nodes</span><span class="token operator">:</span> <span class="token punctuation">[</span></pre></td></tr><tr><td data-num="28"></td><td><pre>                <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="29"></td><td><pre> <span class="token literal-property property">id</span><span class="token operator">:</span>  <span class="token string">"1"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="30"></td><td><pre> <span class="token literal-property property">type</span><span class="token operator">:</span>  <span class="token string">"rect"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="31"></td><td><pre> <span class="token literal-property property">x</span><span class="token operator">:</span>  <span class="token number">150</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="32"></td><td><pre> <span class="token literal-property property">y</span><span class="token operator">:</span>  <span class="token number">100</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="33"></td><td><pre>                <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="34"></td><td><pre>                <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="35"></td><td><pre> <span class="token literal-property property">id</span><span class="token operator">:</span>  <span class="token string">"2"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="36"></td><td><pre> <span class="token literal-property property">type</span><span class="token operator">:</span>  <span class="token string">"circle"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="37"></td><td><pre> <span class="token literal-property property">x</span><span class="token operator">:</span>  <span class="token number">350</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="38"></td><td><pre> <span class="token literal-property property">y</span><span class="token operator">:</span>  <span class="token number">200</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="39"></td><td><pre>                <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="40"></td><td><pre>                <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="41"></td><td><pre> <span class="token literal-property property">id</span><span class="token operator">:</span>  <span class="token string">"3"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="42"></td><td><pre> <span class="token literal-property property">type</span><span class="token operator">:</span>  <span class="token string">"diamond"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="43"></td><td><pre> <span class="token literal-property property">x</span><span class="token operator">:</span>  <span class="token number">500</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="44"></td><td><pre> <span class="token literal-property property">y</span><span class="token operator">:</span>  <span class="token number">300</span></pre></td></tr><tr><td data-num="45"></td><td><pre>                <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="46"></td><td><pre>  </pre></td></tr><tr><td data-num="47"></td><td><pre>            <span class="token punctuation">]</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="48"></td><td><pre> <span class="token literal-property property">edges</span><span class="token operator">:</span> <span class="token punctuation">[</span></pre></td></tr><tr><td data-num="49"></td><td><pre>                <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="50"></td><td><pre> <span class="token literal-property property">sourceNodeId</span><span class="token operator">:</span>  <span class="token string">"1"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="51"></td><td><pre> <span class="token literal-property property">targetNodeId</span><span class="token operator">:</span>  <span class="token string">"2"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="52"></td><td><pre> <span class="token literal-property property">type</span><span class="token operator">:</span>  <span class="token string">"polyline"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="53"></td><td><pre>                <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="54"></td><td><pre>                <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="55"></td><td><pre> <span class="token literal-property property">sourceNodeId</span><span class="token operator">:</span>  <span class="token string">"2"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="56"></td><td><pre> <span class="token literal-property property">targetNodeId</span><span class="token operator">:</span>  <span class="token string">"3"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="57"></td><td><pre> <span class="token literal-property property">type</span><span class="token operator">:</span>  <span class="token string">"polyline"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="58"></td><td><pre>                <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="59"></td><td><pre>            <span class="token punctuation">]</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="60"></td><td><pre>        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="61"></td><td><pre> <span class="token comment">// 拖拽面板</span></pre></td></tr><tr><td data-num="62"></td><td><pre> <span class="token keyword">this</span><span class="token punctuation">.</span>lf<span class="token punctuation">.</span>extension<span class="token punctuation">.</span>dndPanel<span class="token punctuation">.</span><span class="token function">setPatternItems</span><span class="token punctuation">(</span><span class="token punctuation">[</span></pre></td></tr><tr><td data-num="63"></td><td><pre>            <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="64"></td><td><pre> <span class="token literal-property property">label</span><span class="token operator">:</span>  <span class="token string">'选区'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="65"></td><td><pre> <span class="token literal-property property">icon</span><span class="token operator">:</span>  <span class="token string">'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAAH6ji2bAAAABGdBTUEAALGPC/xhBQAAAOVJREFUOBGtVMENwzAIjKP++2026ETdpv10iy7WFbqFyyW6GBywLCv5gI+Dw2Bluj1znuSjhb99Gkn6QILDY2imo60p8nsnc9bEo3+QJ+AKHfMdZHnl78wyTnyHZD53Zzx73MRSgYvnqgCUHj6gwdck7Zsp1VOrz0Uz8NbKunzAW+Gu4fYW28bUYutYlzSa7B84Fh7d1kjLwhcSdYAYrdkMQVpsBr5XgDGuXwQfQr0y9zwLda+DUYXLaGKdd2ZTtvbolaO87pdo24hP7ov16N0zArH1ur3iwJpXxm+v7oAJNR4JEP8DoAuSFEkYH7cAAAAASUVORK5CYII='</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="66"></td><td><pre> <span class="token function-variable function">callback</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="67"></td><td><pre> <span class="token keyword">this</span><span class="token punctuation">.</span>lf<span class="token punctuation">.</span>extension<span class="token punctuation">.</span>selectionSelect<span class="token punctuation">.</span><span class="token function">openSelectionSelect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="68"></td><td><pre> <span class="token keyword">this</span><span class="token punctuation">.</span>lf<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'selection:selected'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="69"></td><td><pre> <span class="token keyword">this</span><span class="token punctuation">.</span>lf<span class="token punctuation">.</span>extension<span class="token punctuation">.</span>selectionSelect<span class="token punctuation">.</span><span class="token function">closeSelectionSelect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="70"></td><td><pre>                    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="71"></td><td><pre>                <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="72"></td><td><pre>            <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="73"></td><td><pre>            <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="74"></td><td><pre> <span class="token literal-property property">type</span><span class="token operator">:</span>  <span class="token string">'circle'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="75"></td><td><pre> <span class="token literal-property property">text</span><span class="token operator">:</span>  <span class="token string">'开始'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="76"></td><td><pre> <span class="token literal-property property">label</span><span class="token operator">:</span>  <span class="token string">'开始节点'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="77"></td><td><pre> <span class="token literal-property property">icon</span><span class="token operator">:</span>  <span class="token string">'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAAH6ji2bAAAABGdBTUEAALGPC/xhBQAAAnBJREFUOBGdVL1rU1EcPfdGBddmaZLiEhdx1MHZQXApraCzQ7GKLgoRBxMfcRELuihWKcXFRcEWF8HBf0DdDCKYRZpnl7p0svLe9Zzbd29eQhTbC8nv+9zf130AT63jvooOGS8Vf9Nt5zxba7sXQwODfkWpkbjTQfCGUd9gIp3uuPP8bZ946g56dYQvnBg+b1HB8VIQmMFrazKcKSvFW2dQTxJnJdQ77urmXWOMBCmXM2Rke4S7UAW+/8ywwFoewmBps2tu7mbTdp8VMOkIRAkKfrVawalJTtIliclFbaOBqa0M2xImHeVIfd/nKAfVq/LGnPss5Kh00VEdSzfwnBXPUpmykNss4lUI9C1ga+8PNrBD5YeqRY2Zz8PhjooIbfJXjowvQJBqkmEkVnktWhwu2SM7SMx7Cj0N9IC0oQXRo8xwAGzQms+xrB/nNSUWVveI48ayrFGyC2+E2C+aWrZHXvOuz+CiV6iycWe1Rd1Q6+QUG07nb5SbPrL4426d+9E1axKjY3AoRrlEeSQo2Eu0T6BWAAr6COhTcWjRaYfKG5csnvytvUr/WY4rrPMB53Uo7jZRjXaG6/CFfNMaXEu75nG47X+oepU7PKJvvzGDY1YLSKHJrK7vFUwXKkaxwhCW3u+sDFMVrIju54RYYbFKpALZAo7sB6wcKyyrd+aBMryMT2gPyD6GsQoRFkGHr14TthZni9ck0z+Pnmee460mHXbRAypKNy3nuMdrWgVKj8YVV8E7PSzp1BZ9SJnJAsXdryw/h5ctboUVi4AFiCd+lQaYMw5z3LGTBKjLQOeUF35k89f58Vv/tGh+l+PE/wG0rgfIUbZK5AAAAABJRU5ErkJggg=='</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="78"></td><td><pre>            <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="79"></td><td><pre>            <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="80"></td><td><pre> <span class="token literal-property property">type</span><span class="token operator">:</span>  <span class="token string">'UserTask'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="81"></td><td><pre> <span class="token literal-property property">label</span><span class="token operator">:</span>  <span class="token string">'用户任务'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="82"></td><td><pre> <span class="token literal-property property">icon</span><span class="token operator">:</span>  <span class="token string">'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAEFVwZaAAAABGdBTUEAALGPC/xhBQAAAqlJREFUOBF9VM9rE0EUfrMJNUKLihGbpLGtaCOIR8VjQMGDePCgCCIiCNqzCAp2MyYUCXhUtF5E0D+g1t48qAd7CCLqQUQKEWkStcEfVGlLdp/fm3aW2QQdyLzf33zz5m2IsAZ9XhDpyaaIZkTS4ASzK41TFao88GuJ3hsr2pAbipHxuSYyKRugagICGANkfFnNh3HeE2N0b3nN2cgnpcictw5veJIzxmDamSlxxQZicq/mflxhbaH8BLRbuRwNtZp0JAhoplVRUdzmCe/vO27wFuuA3S5qXruGdboy5/PRGFsbFGKo/haRtQHIrM83bVeTrOgNhZReWaYGnE4aUQgTJNvijJFF4jQ8BxJE5xfKatZWmZcTQ+BVgh7s8SgPlCkcec4mGTmieTP4xd7PcpIEg1TX6gdeLW8rTVMVLVvb7ctXoH0Cydl2QOPJBG21STE5OsnbweVYzAnD3A7PVILuY0yiiyDwSm2g441r6rMSgp6iK42yqroI2QoXeJVeA+YeZSa47gZdXaZWQKTrG93rukk/l2Al6Kzh5AZEl7dDQy+JjgFahQjRopSxPbrbvK7GRe9ePWBo1wcU7sYrFZtavXALwGw/7Dnc50urrHJuTPSoO2IMV3gUQGNg87IbSOIY9BpiT9HV7FCZ94nPXb3MSnwHn/FFFE1vG6DTby+r31KAkUktB3Qf6ikUPWxW1BkXSPQeMHHiW0+HAd2GelJsZz1OJegCxqzl+CLVHa/IibuHeJ1HAKzhuDR+ymNaRFM+4jU6UWKXorRmbyqkq/D76FffevwdCp+jN3UAN/C9JRVTDuOxC/oh+EdMnqIOrlYteKSfadVRGLJFJPSB/ti/6K8f0CNymg/iH2gO/f0DwE0yjAFO6l8JaR5j0VPwPwfaYHqOqrCI319WzwhwzNW/aQAAAABJRU5ErkJggg=='</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="83"></td><td><pre> <span class="token literal-property property">className</span><span class="token operator">:</span>  <span class="token string">'important-node'</span></pre></td></tr><tr><td data-num="84"></td><td><pre>            <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="85"></td><td><pre>            <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="86"></td><td><pre> <span class="token literal-property property">type</span><span class="token operator">:</span>  <span class="token string">'rect'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="87"></td><td><pre> <span class="token literal-property property">label</span><span class="token operator">:</span>  <span class="token string">'系统任务'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="88"></td><td><pre> <span class="token literal-property property">icon</span><span class="token operator">:</span>  <span class="token string">'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAEFVwZaAAAABGdBTUEAALGPC/xhBQAAAqlJREFUOBF9VM9rE0EUfrMJNUKLihGbpLGtaCOIR8VjQMGDePCgCCIiCNqzCAp2MyYUCXhUtF5E0D+g1t48qAd7CCLqQUQKEWkStcEfVGlLdp/fm3aW2QQdyLzf33zz5m2IsAZ9XhDpyaaIZkTS4ASzK41TFao88GuJ3hsr2pAbipHxuSYyKRugagICGANkfFnNh3HeE2N0b3nN2cgnpcictw5veJIzxmDamSlxxQZicq/mflxhbaH8BLRbuRwNtZp0JAhoplVRUdzmCe/vO27wFuuA3S5qXruGdboy5/PRGFsbFGKo/haRtQHIrM83bVeTrOgNhZReWaYGnE4aUQgTJNvijJFF4jQ8BxJE5xfKatZWmZcTQ+BVgh7s8SgPlCkcec4mGTmieTP4xd7PcpIEg1TX6gdeLW8rTVMVLVvb7ctXoH0Cydl2QOPJBG21STE5OsnbweVYzAnD3A7PVILuY0yiiyDwSm2g441r6rMSgp6iK42yqroI2QoXeJVeA+YeZSa47gZdXaZWQKTrG93rukk/l2Al6Kzh5AZEl7dDQy+JjgFahQjRopSxPbrbvK7GRe9ePWBo1wcU7sYrFZtavXALwGw/7Dnc50urrHJuTPSoO2IMV3gUQGNg87IbSOIY9BpiT9HV7FCZ94nPXb3MSnwHn/FFFE1vG6DTby+r31KAkUktB3Qf6ikUPWxW1BkXSPQeMHHiW0+HAd2GelJsZz1OJegCxqzl+CLVHa/IibuHeJ1HAKzhuDR+ymNaRFM+4jU6UWKXorRmbyqkq/D76FffevwdCp+jN3UAN/C9JRVTDuOxC/oh+EdMnqIOrlYteKSfadVRGLJFJPSB/ti/6K8f0CNymg/iH2gO/f0DwE0yjAFO6l8JaR5j0VPwPwfaYHqOqrCI319WzwhwzNW/aQAAAABJRU5ErkJggg=='</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="89"></td><td><pre> <span class="token literal-property property">className</span><span class="token operator">:</span>  <span class="token string">'import_icon'</span></pre></td></tr><tr><td data-num="90"></td><td><pre>            <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="91"></td><td><pre>            <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="92"></td><td><pre> <span class="token literal-property property">type</span><span class="token operator">:</span>  <span class="token string">'diamond'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="93"></td><td><pre> <span class="token literal-property property">label</span><span class="token operator">:</span>  <span class="token string">'条件判断'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="94"></td><td><pre> <span class="token literal-property property">icon</span><span class="token operator">:</span>  <span class="token string">'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAAHeEJUAAAAABGdBTUEAALGPC/xhBQAAAvVJREFUOBGNVEFrE0EU/mY3bQoiFlOkaUJrQUQoWMGePLX24EH0IIoHKQiCV0G8iE1covgLiqA/QTzVm1JPogc9tIJYFaQtlhQxqYjSpunu+L7JvmUTU3AgmTfvffPNN++9WSA1DO182f6xwILzD5btfAoQmwL5KJEwiQyVbSVZ0IgRyV6PTpIJ81E5ZvqfHQR0HUOBHW4L5Et2kQ6Zf7iAOhTFAA8s0pEP7AXO1uAA52SbqGk6h/6J45LaLhO64ByfcUzM39V7ZiAdS2yCePPEIQYvTUHqM/n7dgQNfBKWPjpF4ISk8q3J4nB11qw6X8l+FsF3EhlkEMfrjIer3wJTLwS2aCNcj4DbGxXTw00JmAuO+Ni6bBxVUCvS5d9aa04+so4pHW5jLTywuXAL7jJ+D06sl82Sgl2JuVBQn498zkc2bGKxULHjCnSMadBKYDYYHAtsby1EQ5lNGrQd4Y3v4Zo0XdGEmDno46yCM9Tk+RiJmUYHS/aXHPNTcjxcbTFna000PFJHIVZ5lFRqRpJWk9/+QtlOUYJj9HG5pVFEU7zqIYDVsw2s+AJaD8wTd2umgSCCyUxgGsS1Y6TBwXQQTFuZaHcd8gAGioE90hlsY+wMcs30RduYtxanjMGal8H5dMW67dmT1JFtYUEe8LiQLRsPZ6IIc7A4J5tqco3T0pnv/4u0kyzrYUq7gASuEyI8VXKvB9Odytv6jS/PNaZBln0nioJG/AVQRZvApOdhjj3Jt8QC8Im09SafwdBdvIpztpxWxpeKCC+EsFdS8DCyuCn2munFpL7ctHKp+Xc5cMybeIyMAN33SPL3ZR9QV1XVwLyzHm6Iv0/yeUuUb7PPlZC4D4HZkeu6dpF4v9j9MreGtMbxMMRLIcjJic9yHi7WQ3yVKzZVWUr5UrViJvn1FfUlwe/KYVfYyWRLSGNu16hR01U9IacajXPei0wx/5BqgInvJN+MMNtNme7ReU9SBbgntovn0kKHpFg7UogZvaZiOue/q1SBo9ktHzQAAAAASUVORK5CYII='</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="95"></td><td><pre>            <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="96"></td><td><pre>            <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="97"></td><td><pre> <span class="token literal-property property">type</span><span class="token operator">:</span>  <span class="token string">'circle'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="98"></td><td><pre> <span class="token literal-property property">text</span><span class="token operator">:</span>  <span class="token string">'结束'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="99"></td><td><pre> <span class="token literal-property property">label</span><span class="token operator">:</span>  <span class="token string">'结束节点'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="100"></td><td><pre> <span class="token literal-property property">icon</span><span class="token operator">:</span>  <span class="token string">'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAAH6ji2bAAAABGdBTUEAALGPC/xhBQAAA1BJREFUOBFtVE1IVUEYPXOf+tq40Y3vPcmFIdSjIorWoRG0ERWUgnb5FwVhYQSl72oUoZAboxKNFtWiwKRN0M+jpfSzqJAQclHo001tKkjl3emc8V69igP3znzfnO/M9zcDcKT67azmjYWTwl9Vn7Vumeqzj1DVb6cleQY4oAVnIOPb+mKAGxQmKI5CWNJ2aLPatxWa3aB9K7/fB+/Z0jUF6TmMlFLQqrkECWQzOZxYGjTlOl8eeKaIY5yHnFn486xBustDjWT6dG7pmjHOJd+33t0iitTPkK6tEvjxq4h2MozQ6WFSX/LkDUGfFwfhEZj1Auz/U4pyAi5Sznd7uKzznXeVHlI/Aywmk6j7fsUsEuCGADrWARXXwjxWQsUbIupDHJI7kF5dRktg0eN81IbiZXiTESic50iwS+t1oJgL83jAiBupLDCQqwziaWSoAFSeIR3P5Xv5az00wyIn35QRYTwdSYbz8pH8fxUUAtxnFvYmEmgI0wYXUXcCCSpeEVpXlsRhBnCEATxWylL9+EKCAYhe1NGstUa6356kS9NVvt3DU2fd+Wtbm/+lSbylJqsqkSm9CRhvoJVlvKPvF1RKY/FcPn5j4UfIMLn8D4UYb54BNsilTDXKnF4CfTobA0FpoW/LSp306wkXM+XaOJhZaFkcNM82ASNAWMrhrUbRfmyeI1FvRBTpN06WKxa9BK0o2E4Pd3zfBBEwPsv9sQBnmLVbLEIZ/Xe9LYwJu/Er17W6HYVBc7vmuk0xUQ+pqxdom5Fnp55SiytXLPYoMXNM4u4SNSCFWnrVIzKG3EGyMXo6n/BQOe+bX3FClY4PwydVhthOZ9NnS+ntiLh0fxtlUJHAuGaFoVmttpVMeum0p3WEXbcll94l1wM/gZ0Ccczop77VvN2I7TlsZCsuXf1WHvWEhjO8DPtyOVg2/mvK9QqboEth+7pD6NUQC1HN/TwvydGBARi9MZSzLE4b8Ru3XhX2PBxf8E1er2A6516o0w4sIA+lwURhAON82Kwe2iDAC1Watq4XHaGQ7skLcFOtI5lDxuM2gZe6WFIotPAhbaeYlU4to5cuarF1QrcZ/lwrLaCJl66JBocYZnrNlvm2+MBCTmUymPrYZVbjdlr/BxlMjmNmNI3SAAAAAElFTkSuQmCC'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="101"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="102"></td><td><pre>        <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="103"></td><td><pre>    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="104"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="105"></td><td><pre><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></pre></td></tr><tr><td data-num="106"></td><td><pre></pre></td></tr><tr><td data-num="107"></td><td><pre><span class="token operator">&lt;</span>style  scoped<span class="token operator">></span></pre></td></tr><tr><td data-num="108"></td><td><pre><span class="token punctuation">.</span>container <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="109"></td><td><pre> <span class="token literal-property property">width</span><span class="token operator">:</span> 1000px<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="110"></td><td><pre> <span class="token literal-property property">height</span><span class="token operator">:</span> 600px<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="111"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="112"></td><td><pre>  </pre></td></tr><tr><td data-num="113"></td><td><pre><span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">></span></pre></td></tr></table></figure><p>common/UserTask.js</p>
+<figure class="highlight javascript"><figcaption data-lang="javascript"><span>t</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> RectNode<span class="token punctuation">,</span> RectNodeModel<span class="token punctuation">,</span> h <span class="token punctuation">&#125;</span> <span class="token keyword">from</span>  <span class="token string">"@logicflow/core"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>  </pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token keyword">class</span>  <span class="token class-name">UserTaskView</span>  <span class="token keyword">extends</span>  <span class="token class-name">RectNode</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre> <span class="token function">getLabelShape</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> model <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height <span class="token punctuation">&#125;</span> <span class="token operator">=</span> model<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre> <span class="token keyword">const</span>  style <span class="token operator">=</span> model<span class="token punctuation">.</span><span class="token function">getNodeStyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre> <span class="token keyword">return</span>  <span class="token function">h</span><span class="token punctuation">(</span></pre></td></tr><tr><td data-num="9"></td><td><pre> <span class="token string">"svg"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="10"></td><td><pre>      <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="11"></td><td><pre> <span class="token literal-property property">x</span><span class="token operator">:</span>  x <span class="token operator">-</span> width <span class="token operator">/</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">5</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="12"></td><td><pre> <span class="token literal-property property">y</span><span class="token operator">:</span>  y <span class="token operator">-</span> height <span class="token operator">/</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">5</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="13"></td><td><pre> <span class="token literal-property property">width</span><span class="token operator">:</span>  <span class="token number">25</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="14"></td><td><pre> <span class="token literal-property property">height</span><span class="token operator">:</span>  <span class="token number">25</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="15"></td><td><pre> <span class="token literal-property property">viewBox</span><span class="token operator">:</span>  <span class="token string">"0 0 1274 1024"</span></pre></td></tr><tr><td data-num="16"></td><td><pre>      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="17"></td><td><pre>      <span class="token punctuation">[</span></pre></td></tr><tr><td data-num="18"></td><td><pre> <span class="token function">h</span><span class="token punctuation">(</span><span class="token string">"path"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="19"></td><td><pre> <span class="token literal-property property">fill</span><span class="token operator">:</span>  style<span class="token punctuation">.</span>stroke<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="20"></td><td><pre> <span class="token literal-property property">d</span><span class="token operator">:</span></pre></td></tr><tr><td data-num="21"></td><td><pre> <span class="token string">"M690.366075 350.568358c0-98.876614-79.937349-179.048571-178.558027-179.048571-98.59935 0-178.515371 80.150629-178.515371 179.048571 0 98.833958 79.916021 178.963259 178.515371 178.963259C610.428726 529.531617 690.366075 449.380988 690.366075 350.568358M376.140632 350.568358c0-75.159877 60.72082-136.072649 135.667416-136.072649 74.989253 0 135.667416 60.912772 135.667416 136.072649 0 75.117221-60.678164 136.029993-135.667416 136.029993C436.861451 486.577022 376.140632 425.664251 376.140632 350.568358M197.284012 762.923936 197.284012 778.472049l15.526785 0 291.255186 0.127968L819.784387 778.472049l15.569441 0 0-15.548113c0-139.783721-136.413897-285.581938-311.026243-273.275681-10.002833 0.703824-24.740482 9.128385-34.658002 9.938849-8.573857 0.74648 13.692577 8.232609 14.396401 16.827793 9.021745-0.789136 6.313088 13.095393 15.505457 13.095393 150.597017 0 263.14488 103.07823 263.14488 224.62651l15.441473-15.590769-285.816546-0.042656-278.991585 1.81288 15.526785 15.612097c0-82.752645 75.095893-152.70849 136.861785-191.824044 7.25152-4.58552 8.659169-17.659585 4.862784-22.906273-6.846288-9.426977-19.877697-8.701825-28.046322-6.014496C285.262018 560.521203 197.284012 667.758394 197.284012 762.923936"</span></pre></td></tr><tr><td data-num="22"></td><td><pre>        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="23"></td><td><pre> <span class="token function">h</span><span class="token punctuation">(</span><span class="token string">"path"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="24"></td><td><pre> <span class="token literal-property property">fill</span><span class="token operator">:</span>  style<span class="token punctuation">.</span>stroke<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="25"></td><td><pre> <span class="token literal-property property">d</span><span class="token operator">:</span></pre></td></tr><tr><td data-num="26"></td><td><pre> <span class="token string">"M512.31992 1.535616c-282.766642 0-512.021328 228.89211-512.021328 511.210864 0 282.46805 229.254686 511.25352 512.021328 511.25352 117.431975 0 228.828126-39.606098 318.810964-111.204199 10.791969-8.488545 12.540865-24.22861 3.988336-34.99925-8.616513-10.770641-24.356578-12.540865-35.127218-3.94568-81.174373 64.538532-181.586603 100.241606-287.650754 100.241606-255.210864 0-462.028493-206.561693-462.028493-461.367325 0-254.762976 206.817629-461.303341 462.028493-461.303341 255.210864 0 462.092477 206.561693 462.092477 461.303341 0 87.380821-24.33525 171.093227-69.614596 243.651087-7.272848 11.645089-3.668416 27.086562 8.040657 34.35941 11.709073 7.272848 27.10789 3.62576 34.402066-7.976672 50.184787-80.406565 77.143381-173.247355 77.143381-270.055153C1024.383904 230.427726 795.10789 1.535616 512.31992 1.535616z"</span></pre></td></tr><tr><td data-num="27"></td><td><pre>        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="28"></td><td><pre>      <span class="token punctuation">]</span></pre></td></tr><tr><td data-num="29"></td><td><pre>    <span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="30"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="31"></td><td><pre> <span class="token function">getShape</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="32"></td><td><pre> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> model <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="33"></td><td><pre> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height<span class="token punctuation">,</span> radius <span class="token punctuation">&#125;</span> <span class="token operator">=</span> model<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="34"></td><td><pre> <span class="token keyword">const</span>  style <span class="token operator">=</span> model<span class="token punctuation">.</span><span class="token function">getNodeStyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="35"></td><td><pre> <span class="token keyword">return</span>  <span class="token function">h</span><span class="token punctuation">(</span><span class="token string">"g"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span></pre></td></tr><tr><td data-num="36"></td><td><pre> <span class="token function">h</span><span class="token punctuation">(</span><span class="token string">"rect"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="37"></td><td><pre>        <span class="token operator">...</span>style<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="38"></td><td><pre> <span class="token literal-property property">x</span><span class="token operator">:</span>  x <span class="token operator">-</span> width <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="39"></td><td><pre> <span class="token literal-property property">y</span><span class="token operator">:</span>  y <span class="token operator">-</span> height <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="40"></td><td><pre> <span class="token literal-property property">rx</span><span class="token operator">:</span>  radius<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="41"></td><td><pre> <span class="token literal-property property">ry</span><span class="token operator">:</span>  radius<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="42"></td><td><pre> width<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="43"></td><td><pre> height</pre></td></tr><tr><td data-num="44"></td><td><pre>      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="45"></td><td><pre> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getLabelShape</span><span class="token punctuation">(</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="46"></td><td><pre>    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="47"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="48"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="49"></td><td><pre>  </pre></td></tr><tr><td data-num="50"></td><td><pre><span class="token keyword">class</span>  <span class="token class-name">UserTaskModel</span>  <span class="token keyword">extends</span>  <span class="token class-name">RectNodeModel</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="51"></td><td><pre> <span class="token function">setAttributes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="52"></td><td><pre> <span class="token keyword">this</span><span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token number">120</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="53"></td><td><pre> <span class="token keyword">this</span><span class="token punctuation">.</span>height <span class="token operator">=</span> <span class="token number">80</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="54"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="55"></td><td><pre> <span class="token function">getTextStyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="56"></td><td><pre> <span class="token keyword">const</span>  style <span class="token operator">=</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">getTextStyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="57"></td><td><pre> style<span class="token punctuation">.</span>fontSize <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="58"></td><td><pre> <span class="token keyword">const</span>  properties <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>properties<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="59"></td><td><pre> style<span class="token punctuation">.</span>color <span class="token operator">=</span> properties<span class="token punctuation">.</span>disabled <span class="token operator">?</span> <span class="token string">"red"</span> <span class="token operator">:</span> <span class="token string">"rgb(24, 125, 255)"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="60"></td><td><pre> <span class="token keyword">return</span>  style<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="61"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="62"></td><td><pre> <span class="token function">getNodeStyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="63"></td><td><pre> <span class="token keyword">const</span>  style <span class="token operator">=</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">getNodeStyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="64"></td><td><pre> <span class="token keyword">const</span>  properties <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>properties<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="65"></td><td><pre> <span class="token keyword">if</span> <span class="token punctuation">(</span>properties<span class="token punctuation">.</span>disabled<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="66"></td><td><pre> style<span class="token punctuation">.</span>stroke <span class="token operator">=</span> <span class="token string">"red"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="67"></td><td><pre><span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="68"></td><td><pre> style<span class="token punctuation">.</span>stroke <span class="token operator">=</span> <span class="token string">"rgb(24, 125, 255)"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="69"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="70"></td><td><pre> <span class="token keyword">return</span>  style<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="71"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="72"></td><td><pre> <span class="token function">getAnchorStyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="73"></td><td><pre> <span class="token keyword">const</span>  style <span class="token operator">=</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">getAnchorStyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="74"></td><td><pre> style<span class="token punctuation">.</span>stroke <span class="token operator">=</span> <span class="token string">"rgb(24, 125, 255)"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="75"></td><td><pre> style<span class="token punctuation">.</span>r <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="76"></td><td><pre> style<span class="token punctuation">.</span>hover<span class="token punctuation">.</span>r <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="77"></td><td><pre> style<span class="token punctuation">.</span>hover<span class="token punctuation">.</span>fill <span class="token operator">=</span> <span class="token string">"rgb(24, 125, 255)"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="78"></td><td><pre> style<span class="token punctuation">.</span>hover<span class="token punctuation">.</span>stroke <span class="token operator">=</span> <span class="token string">"rgb(24, 125, 255)"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="79"></td><td><pre> <span class="token keyword">return</span>  style<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="80"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="81"></td><td><pre> <span class="token function">getAnchorLineStyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="82"></td><td><pre> <span class="token keyword">const</span>  style <span class="token operator">=</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">getAnchorLineStyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="83"></td><td><pre> style<span class="token punctuation">.</span>stroke <span class="token operator">=</span> <span class="token string">"rgb(24, 125, 255)"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="84"></td><td><pre> <span class="token keyword">return</span>  style<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="85"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="86"></td><td><pre> <span class="token function">getOutlineStyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="87"></td><td><pre> <span class="token keyword">const</span>  style <span class="token operator">=</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">getOutlineStyle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="88"></td><td><pre> style<span class="token punctuation">.</span>stroke <span class="token operator">=</span> <span class="token string">"red"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="89"></td><td><pre> style<span class="token punctuation">.</span>hover<span class="token punctuation">.</span>stroke <span class="token operator">=</span> <span class="token string">"red"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="90"></td><td><pre> <span class="token keyword">return</span>  style<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="91"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="92"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="93"></td><td><pre>  </pre></td></tr><tr><td data-num="94"></td><td><pre><span class="token keyword">export</span>  <span class="token keyword">default</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="95"></td><td><pre> <span class="token literal-property property">type</span><span class="token operator">:</span>  <span class="token string">"UserTask"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="96"></td><td><pre> <span class="token literal-property property">view</span><span class="token operator">:</span>  UserTaskView<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="97"></td><td><pre> <span class="token literal-property property">model</span><span class="token operator">:</span>  UserTaskModel</pre></td></tr><tr><td data-num="98"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">;</span></pre></td></tr></table></figure><h3 id="实现效果"><a class="markdownIt-Anchor" href="#实现效果">#</a> 实现效果</h3>
+<p><img data-src="/assets/230706.png" alt="" title="Magic Gardens"></p>
+
+      <div class="tags">
+          <a href="/tags/Vue/" rel="tag"><i class="ic i-tag"></i> Vue</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-07-06 17:32:57" itemprop="dateModified" datetime="2023-07-06T17:32:57+08:00">2023-07-06</time>
+  </span>
+  <span id="vue3/使用Vue3+LogicFlow实现可拖拽编辑等操作的流程图/" class="item leancloud_visitors" data-flag-title="使用Vue3+LogicFlow实现可拖拽编辑等操作的流程图" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="Roc 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="Roc 支付宝">
+        <p>支付宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Roc <i class="ic i-at"><em>@</em></i>一些記錄
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://roc-camera.github.io/vue3/%E4%BD%BF%E7%94%A8Vue3+LogicFlow%E5%AE%9E%E7%8E%B0%E5%8F%AF%E6%8B%96%E6%8B%BD%E7%BC%96%E8%BE%91%E7%AD%89%E6%93%8D%E4%BD%9C%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9B%BE/" title="使用Vue3+LogicFlow实现可拖拽编辑等操作的流程图">https://roc-camera.github.io/vue3/使用Vue3+LogicFlow实现可拖拽编辑等操作的流程图/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/csharp/mvc%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;pic1.zhimg.com&#x2F;80&#x2F;v2-6665ba00a7f4bf46cf76d9169be1c9e1_720w.webp?source&#x3D;1940ef5c" title="在.cshtml文件中读取到appsettings.json的内容">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> C#</span>
+  <h3>在.cshtml文件中读取到appsettings.json的内容</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/JavaScript/js%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%A4%B9%E5%B9%B6%E8%8E%B7%E5%BE%97%E6%96%87%E4%BB%B6%E5%A4%B9%E5%90%8D/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;pica.zhimg.com&#x2F;80&#x2F;v2-c2bc308ed73d97e1c27b8be03d73781c_720w.webp?source&#x3D;1940ef5c" title="js上传文件夹并获得文件夹名">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> JS</span>
+  <h3>js上传文件夹并获得文件夹名</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#logicflow-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text"> LogicFlow 是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85logicflow"><span class="toc-number">2.</span> <span class="toc-text"> 安装 LogicFlow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="toc-number">3.</span> <span class="toc-text"> 快速上手</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8"><span class="toc-number">3.1.</span> <span class="toc-text"> 创建容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E6%95%B0%E6%8D%AE"><span class="toc-number">3.2.</span> <span class="toc-text"> 准备数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E7%94%BB%E5%B8%83"><span class="toc-number">3.3.</span> <span class="toc-text"> 渲染画布</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text"> 基本使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#demo"><span class="toc-number">5.</span> <span class="toc-text"> Demo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C"><span class="toc-number">6.</span> <span class="toc-text"> 实现效果</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/vue3/Vue3%E5%AD%A6%E4%B9%A0/" rel="bookmark" title="Vue3学习教程">Vue3学习教程</a></li><li class="active"><a href="/vue3/%E4%BD%BF%E7%94%A8Vue3+LogicFlow%E5%AE%9E%E7%8E%B0%E5%8F%AF%E6%8B%96%E6%8B%BD%E7%BC%96%E8%BE%91%E7%AD%89%E6%93%8D%E4%BD%9C%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9B%BE/" rel="bookmark" title="使用Vue3+LogicFlow实现可拖拽编辑等操作的流程图">使用Vue3+LogicFlow实现可拖拽编辑等操作的流程图</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Roc"
+      data-src="/images/avatarOne.jpg">
+  <p class="name" itemprop="name">Roc</p>
+  <div class="description" itemprop="description">逝者如斯夫，不舍昼夜！</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">23</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">6</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">10</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL1JvYy1DYW1lcmE=" title="https:&#x2F;&#x2F;github.com&#x2F;Roc-Camera"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;yourname"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTQxNDE0MzEwOQ==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;414143109"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item weibo" data-url="aHR0cHM6Ly93ZWliby5jb20vdS82NzQxOTY2NTMy" title="https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6741966532"><i class="ic i-weibo"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOjE2MDg5NzY4MzNAcXEuY29t" title="mailto:1608976833@qq.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友链</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/star/" rel="section"><i class="ic i-star"></i>网址</a>
+  </li>
+
+    
+  <li class="item">
+    <span class="exturl" data-url="aHR0cHM6Ly93d3cuZm9yZXZlcmJsb2cuY24vZ28uaHRtbA=="><i class="ic i-paper-plane"></i>虫洞</span>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/csharp/mvc%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/JavaScript/js%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%A4%B9%E5%B9%B6%E8%8E%B7%E5%BE%97%E6%96%87%E4%BB%B6%E5%A4%B9%E5%90%8D/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/others/" title="分类于 杂项">杂项</a>
+</div>
+
+    <span><a href="/others/%E8%A7%A3%E5%86%B3GitHub%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/" title="解决Github连接超时">解决Github连接超时</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/blazor/" title="分类于 Blazor">Blazor</a>
+</div>
+
+    <span><a href="/blazor/%E5%80%92%E8%AE%A1%E6%97%B6%E8%AE%A1%E6%97%B6%E5%99%A8/" title="倒计时计时器">倒计时计时器</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Vue/" title="分类于 Vue">Vue</a>
+</div>
+
+    <span><a href="/vue3/%E4%BD%BF%E7%94%A8Vue3+LogicFlow%E5%AE%9E%E7%8E%B0%E5%8F%AF%E6%8B%96%E6%8B%BD%E7%BC%96%E8%BE%91%E7%AD%89%E6%93%8D%E4%BD%9C%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9B%BE/" title="使用Vue3+LogicFlow实现可拖拽编辑等操作的流程图">使用Vue3+LogicFlow实现可拖拽编辑等操作的流程图</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/blazor/" title="分类于 Blazor">Blazor</a>
+</div>
+
+    <span><a href="/blazor/%E5%A4%8D%E5%88%B6%E6%96%87%E5%AD%97/" title="Blazor复制文字到剪贴板">Blazor复制文字到剪贴板</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/css/" title="分类于 CSS">CSS</a>
+</div>
+
+    <span><a href="/css/css%E5%8F%91%E5%85%89%E8%BE%B9%E6%A1%86%E7%89%B9%E6%95%88/" title="CSS发光边框特效">CSS发光边框特效</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/css/" title="分类于 CSS">CSS</a>
+</div>
+
+    <span><a href="/css/CSS%E5%AE%9E%E7%8E%B0%E8%83%8C%E6%99%AF%E5%8F%8C%E8%89%B2%E6%88%96%E5%A4%9A%E8%89%B2%E6%8A%80%E5%B7%A7/" title="CSS实现背景双色或多色两种技巧">CSS实现背景双色或多色两种技巧</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/css/" title="分类于 CSS">CSS</a>
+</div>
+
+    <span><a href="/css/%E7%94%A8%E7%BA%AFCSS%E5%AE%9E%E7%8E%B0%E6%B0%B4%E6%B3%A2%E5%8A%A8%E7%94%BB/" title="用纯CSS实现水波动画">用纯CSS实现水波动画</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/csharp/" title="分类于 C#">C#</a>
+</div>
+
+    <span><a href="/csharp/%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="使用C&amp;#35;对JSON进行序列化和反序列化">使用C&#35;对JSON进行序列化和反序列化</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/blazor/" title="分类于 Blazor">Blazor</a>
+</div>
+
+    <span><a href="/blazor/%E6%8E%A7%E5%88%B6textarea%E5%85%83%E7%B4%A0%E6%BB%9A%E5%8A%A8%E6%9D%A1%E8%87%AA%E5%8A%A8%E6%BB%9A%E5%8A%A8%E5%BA%95%E9%83%A8/" title="控制textarea元素自动滚动到底部">控制textarea元素自动滚动到底部</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/csharp/" title="分类于 C#">C#</a>
+</div>
+
+    <span><a href="/csharp/TimeSpan/" title="使用TimeSpan计算时间间隔">使用TimeSpan计算时间间隔</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Roc @ Some Records</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">54k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">49 分钟</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'vue3/使用Vue3+LogicFlow实现可拖拽编辑等操作的流程图/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v3/polyfill.js"></script>
+	
+		<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/pace/1.0.2/pace.min.js"></script>
+	
+		<script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script>
+	
+		<script src="https://unpkg.com/whatwg-fetch@3.4.0/dist/fetch.umd.js"></script>
+	
+		<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.0/anime.min.js"></script>
+	
+		<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/algoliasearch/4.12.1/algoliasearch-lite.umd.min.js"></script>
+	
+		<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/instantsearch.js/4.39.0/instantsearch.production.min.js"></script>
+	
+		<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/lozad.js/1.16.0/lozad.min.js"></script>
+	
+		<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/quicklink/2.2.0/quicklink.umd.min.js"></script>
+	
+		<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/??jquery/3.5.1/jquery.min.js,fancybox/3.5.7/jquery.fancybox.min.js,justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js" async></script>
+	
+		<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.12.0/contrib/copy-tex.min.js" async></script>
+	
+		<script src="https://unpkg.com/frappe-charts@1.5.0/dist/frappe-charts.min.iife.js"></script>
+	
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+</body>
+</html>
